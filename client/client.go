@@ -17,6 +17,5 @@ func RunClient() {
 		fmt.Fprint(conn, input)
 		messageRecive, _ := bufio.NewReader(conn).ReadString('\n')
 		fmt.Println("server answer:", messageRecive)
-
 	}
 }
