@@ -15,6 +15,9 @@ func RunClient() {
 		reader := bufio.NewReader(os.Stdin)
 		input, _ := reader.ReadString('\n')
 		fmt.Fprint(conn, input)
+		if input == "end\n" {
+			break
+		}
 		messageRecive, _ := bufio.NewReader(conn).ReadString('\n')
 		fmt.Println("server answer:", messageRecive)
 	}
