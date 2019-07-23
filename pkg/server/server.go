@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"strconv"
+	"strings"
 )
 
 func RunServer() {
@@ -26,9 +27,8 @@ func RunServer() {
 func clientHandler(connection net.Conn) {
 	for {
 		receivedMessage, _ := bufio.NewReader(connection).ReadString('\n')
-		if receivedMessage[len(receivedMessage)-1] == '\n' {
-			receivedMessage = receivedMessage[:len(receivedMessage)-1]
-		}
+		//if you want run it on linux use "\n"
+		receivedMessage = strings.TrimRight(receivedMessage, "\r\n")
 		if receivedMessage == "end" {
 			connection.Close()
 			fmt.Println("client disconnected")
@@ -39,7 +39,7 @@ func clientHandler(connection net.Conn) {
 
 		answer := strconv.FormatFloat(result, 'f', -1, 64)
 
-		_, _ = fmt.Fprint(connection, answer+"\n")
+		_, _ = fmt.Fprint(connection, answer+"\r\n")
 
 	}
 }
